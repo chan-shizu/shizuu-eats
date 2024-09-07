@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./docker/Dockerfile
+    tty: true
+    volumes:
+      - ./frontend:/frontend
+    environment:
+      - WATCHPACK_POLLING=true
+    ports:
+      - "3000:3000"
+    command: sh ./docker/next_boot.sh

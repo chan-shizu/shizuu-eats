@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/sample', function(req, res, next) {
-  res.render('index', { title: 'Express sample' });
+  res.render('index', { title: 'Express sample from vscode' });
 });
 
 module.exports = router;

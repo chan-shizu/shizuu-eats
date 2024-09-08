@@ -4,8 +4,6 @@ ENV APP_ROOT /frontend
 RUN mkdir $APP_ROOT
 
 COPY package.json $APP_ROOT/
-COPY pnpm-lock.yml $APP_ROOT/
-
-RUN npm install -g pnpm
+COPY package-lock.json $APP_ROOT/
 
 WORKDIR $APP_ROOT

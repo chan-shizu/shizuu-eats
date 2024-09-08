@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pnpm install
+npm install # Install a package
 
-pnpm dev
+npm run dev

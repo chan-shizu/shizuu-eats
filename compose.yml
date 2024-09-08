@@ -9,5 +9,15 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     ports:
-      - "3000:3000"
+      - 3000:3000
     command: sh ./docker/next_boot.sh
+  api:
+    build:
+      context: ./api
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - 3001:3000
+    volumes:
+      - ./api:/src
+    tty: true
+    command: [sh, -c, npm install && npm start]

@@ -8,7 +8,7 @@ const router = express_1.default.Router();
 /* GET home page. */
 router.get('/', function (req, res) {
     try {
-        res.status(200).json({ userId: "1", userName: "index" });
+        res.status(200).json({ userId: "1", userName: "index!?" });
     }
     catch (error) {
         res.status(400).json({ message: error.message });

@@ -3,3 +3,7 @@ https://dev.classmethod.jp/articles/pipeline-to-deploy-from-codecommit-to-ec2/#%
 https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-simple-codecommit.html
 
 ec2でnode.js, expressを動かす
+
+posgre関係
+https://hebiblog.org/postgresql-connect/
+https://densan-hoshigumi.com/server/postgresql-remote-connection

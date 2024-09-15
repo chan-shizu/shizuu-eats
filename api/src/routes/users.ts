@@ -1,11 +1,14 @@
 import express from 'express';
+import prisma from '../prisma';
 
 const router = express.Router();
 
+
 // GETリクエスト
-router.get('/', (req: express.Request, res: express.Response) => {
+router.get('/', async(req: express.Request, res: express.Response) => {
   try {
-    res.status(200).json({ userId: "U001", userName: "Yamada Taro" });
+    const allUsers = await prisma.user.findMany();
+    res.status(200).json(allUsers);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }

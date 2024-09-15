@@ -1,23 +1,21 @@
 #!/bin/bash
 
 cd /home/ec2-user/
-sudo chmod 777 package.json >& /home/ec2-user/stderr1.log
+sudo chmod 777 package.json
 
 # who > user.txt
 # su ec2-user
-sudo yum install -y nodejs npm  >& /home/ec2-user/stderr2.log
-npm i >& /home/ec2-user/stderr3.log
+sudo yum install -y nodejs npm
+npm i
+sudo npx prisma migrate dev --schema src/prisma/schema.prisma
 
-npm run build >& /home/ec2-user/stderr4.log
+npm run build
 
 PID=$(sudo lsof -i :3000 -t)
-echo "$PID" > PID.txt
 if [ -n "$PID" ]; then
-    touch "has_PID.txt"
-    sudo kill "$PID" >& /home/ec2-user/stderr5.log
+    sudo kill "$PID"
 else
-    touch "not_has_PID.txt"
-    echo "ポート 3000 でリッスンしているプロセスはありません。" >& /home/ec2-user/stderr6.log
+    echo "ポート 3000 でリッスンしているプロセスはありません。"
 fi
 
-npm start &  >& /home/ec2-user/stderr7.log
+npm start & 

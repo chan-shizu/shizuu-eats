@@ -137,7 +137,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
             戻る
           </button>
           <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
-            進む
+            注文内容に進む
           </button>
         </div>
       </div>

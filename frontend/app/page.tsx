@@ -5,6 +5,7 @@ import { TopNavigation } from "@/components/TopNavigation";
 import { DeliveryStartButton } from "@/components/DeliveryStartButton";
 import { TimeAndRouterModal } from "@/components/TimeAndRouteModal";
 import { OrderModal } from "@/components/OrderModal";
+import { CustomerInfoModal } from "@/components/CustomerInfoModal";
 
 export default async function Home() {
   const latestShizuyaPosition: LatestShizuyaPosition = await fetchLatestShizuyaPosition();
@@ -16,6 +17,7 @@ export default async function Home() {
       <DeliveryStartButton />
       <TimeAndRouterModal latestShizuyaPosition={latestShizuyaPosition} />
       <OrderModal />
+      <CustomerInfoModal />
     </div>
   );
 }

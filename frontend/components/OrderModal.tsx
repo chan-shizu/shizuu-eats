@@ -19,11 +19,16 @@ export const OrderModal: FC<Props> = ({}) => {
   };
 
   const onClickNextButton = () => {
-    setDeliveryProcessStatus("next");
+    setDeliveryProcessStatus("customerInfo");
     setDeliveryPreviousProcessStatus("order");
   };
 
-  if (deliveryProcessPreviousStatus !== "timeAndRoute" && deliveryProcessPreviousStatus !== "order") return <></>;
+  if (
+    deliveryProcessPreviousStatus !== "timeAndRoute" &&
+    deliveryProcessPreviousStatus !== "order" &&
+    deliveryProcessPreviousStatus !== "customerInfo"
+  )
+    return <></>;
 
   return (
     <div
@@ -82,7 +87,7 @@ export const OrderModal: FC<Props> = ({}) => {
             戻る
           </button>
           <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
-            進む
+            購入者情報に進む
           </button>
         </div>
       </div>

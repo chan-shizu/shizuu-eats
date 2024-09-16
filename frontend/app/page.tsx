@@ -4,6 +4,7 @@ import { LatestShizuyaPosition } from "@/types/latestShizuyasPosition";
 import { TopNavigation } from "@/components/TopNavigation";
 import { DeliveryStartButton } from "@/components/DeliveryStartButton";
 import { TimeAndRouterModal } from "@/components/TimeAndRouteModal";
+import { OrderModal } from "@/components/OrderModal";
 
 export default async function Home() {
   const latestShizuyaPosition: LatestShizuyaPosition = await fetchLatestShizuyaPosition();
@@ -14,6 +15,7 @@ export default async function Home() {
       <GoogleMapArea latestShizuyaPosition={latestShizuyaPosition} />
       <DeliveryStartButton />
       <TimeAndRouterModal latestShizuyaPosition={latestShizuyaPosition} />
+      <OrderModal />
     </div>
   );
 }

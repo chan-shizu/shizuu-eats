@@ -1,24 +1,32 @@
 "use client";
 
-import { currentUserPositionAtom, isDeliveryProcessStartAtom } from "@/atoms/deliveryAtoms";
+import {
+  currentUserPositionAtom,
+  deliveryProcessPreviousStatusAtom,
+  deliveryProcessStatusAtom,
+} from "@/atoms/deliveryAtoms";
 import { LatestShizuyaPosition } from "@/types/latestShizuyasPosition";
 import { useLoadScript } from "@react-google-maps/api";
 import { useAtom, useAtomValue } from "jotai";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 type Props = { latestShizuyaPosition: LatestShizuyaPosition };
 
 export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
-  const [isDeliveryProcessStart, setIsDeliveryProcessStart] = useAtom(isDeliveryProcessStartAtom);
+  const [deliveryProcessStatus, setDeliveryProcessStatus] = useAtom(deliveryProcessStatusAtom);
+  const [deliveryProcessPreviousStatus, setDeliveryPreviousProcessStatus] = useAtom(deliveryProcessPreviousStatusAtom);
   const currentUserPosition = useAtomValue(currentUserPositionAtom);
 
   const [distance, setDistance] = useState("");
   const [walkingDuration, setWalkingDuration] = useState("");
   const [bicyclingDuration, setBicyclingDuration] = useState("");
   const [drivingDuration, setDrivingDuration] = useState("");
+  const isFirstRenderingRef = useRef(true);
+
+  const isModalOpen = deliveryProcessStatus === "timeAndRoute";
 
   useEffect(() => {
-    if (!isDeliveryProcessStart) return;
+    if (!isModalOpen) return;
 
     const directionsService = new google.maps.DirectionsService();
 
@@ -77,13 +85,40 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         }
       }
     );
-  }, [isDeliveryProcessStart]);
 
-  if (!isDeliveryProcessStart) return <></>;
+    if (isFirstRenderingRef.current) {
+      isFirstRenderingRef.current = false;
+    }
+  }, [deliveryProcessStatus]);
+
+  if (isFirstRenderingRef.current) return <></>;
+
+  const onClickBackButton = () => {
+    setDeliveryProcessStatus("initial");
+    setDeliveryPreviousProcessStatus("timeAndRoute");
+  };
+
+  const onClickNextButton = () => {
+    setDeliveryProcessStatus("order");
+    setDeliveryPreviousProcessStatus("timeAndRoute");
+  };
+
+  if (
+    isFirstRenderingRef.current &&
+    deliveryProcessPreviousStatus !== "initial" &&
+    deliveryProcessPreviousStatus !== "timeAndRoute" &&
+    deliveryProcessPreviousStatus !== "order"
+  ) {
+    return <></>;
+  }
 
   return (
-    <div className="w-full h-full fixed inset-0 p-5 z-20 bg-white bg-opacity-80">
-      <div className="bg-white z-10 w-full h-full p-5 relative">
+    <div
+      className={`w-full h-full fixed inset-0 p-5 z-20 bg-white bg-opacity-80 ${
+        isModalOpen ? "animate-slide-in" : "animate-slide-out "
+      }`}
+    >
+      <div className={`bg-white z-10 w-full h-full p-5 relative `}>
         <h2 className=" text-xl">現在地から計算された所要時間は以下のようになります</h2>
         <div className="mt-4">
           <h3 className="text-4xl">距離</h3>
@@ -98,10 +133,12 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
           </ul>
         </div>
         <div className="grid gap-y-2 absolute bottom-5 left-0 w-full">
-          <button className="w-full rounded-full h-20 bg-blue-400" onClick={() => setIsDeliveryProcessStart(false)}>
+          <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400">進む</button>
+          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
+            進む
+          </button>
         </div>
       </div>
     </div>

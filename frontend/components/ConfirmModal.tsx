@@ -51,7 +51,7 @@ export const ConfirmModal: FC<Props> = ({}) => {
           <h3>距離と所要時間</h3>
           <ul className="mt-2 pl-4 text-2xl">
             <li>距離：{distanceAndDuration.distance}</li>
-            <li>所要時間(徒歩)：{distanceAndDuration.walingkTime}</li>
+            <li>所要時間(徒歩)：{distanceAndDuration.walkingkTime}</li>
             <li>所要時間(自転車)：{distanceAndDuration.bicyclingTime}</li>
             <li>所要時間(車)：{distanceAndDuration.driveTime}</li>
           </ul>

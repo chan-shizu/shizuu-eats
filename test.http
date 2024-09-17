@@ -1,0 +1,16 @@
+### オーダー追加
+POST http://localhost:3001/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "distance": "10 km",
+    "walkingTime": "1時間10分",
+    "bicyclingTime" :"30分",
+    "driveTime" :"20分",
+    "orderName": "バーガーキングのワッパー",
+    "orderRemark": "ピクルス抜きで",
+    "orderBudget": 5000,
+    "customInfoName": "田中",
+    "customInfoRemark": "自転車で来てください",
+    "customInfoConfirm": true
+}

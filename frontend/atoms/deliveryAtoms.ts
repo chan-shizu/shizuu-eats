@@ -11,7 +11,7 @@ export const currentUserPositionAtom = atom({
 
 export const distanceAndDurationAtom = atom({
   distance: "",
-  walingkTime: "",
+  walkingkTime: "",
   bicyclingTime: "",
   driveTime: "",
 });

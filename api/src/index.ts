@@ -1,7 +1,8 @@
 import express from "express";
 import indexRouter from "./routes/index";
 import userRouter from "./routes/users";
-import shizuyaPositionRouter from "./routes/shizuya-position";
+import shizuyaPositionRouter from "./routes/shizuya-positions";
+import orderRouter from "./routes/orders";
 
 const app = express();
 
@@ -10,12 +11,7 @@ import type { HttpError } from "http-errors";
 import createHttpError from "http-errors";
 
 // error handler
-app.use(function (
-  err: HttpError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+app.use(function (err: HttpError, req: Request, res: Response, next: NextFunction) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -34,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
 app.use("/users", userRouter);
 app.use("/shizuya-positions", shizuyaPositionRouter);
+app.use("/orders", orderRouter);
 
 // 3000ポートで受信
 const port = process.env.PORT || 3000;

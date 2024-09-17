@@ -30,7 +30,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
 
     const tempDistanceAndDuration = {
       distance: "",
-      walingkTime: "",
+      walkingkTime: "",
       bicyclingTime: "",
       driveTime: "",
     };
@@ -47,7 +47,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
           // 経路の距離と所要時間を取得
           const route = result.routes[0].legs[0];
           tempDistanceAndDuration.distance = route.distance ? route.distance.text : "";
-          tempDistanceAndDuration.walingkTime = route.duration ? route.duration.text : "";
+          tempDistanceAndDuration.walkingkTime = route.duration ? route.duration.text : "";
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -133,7 +133,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         <div className="mt-4">
           <h3 className="text-4xl">所要時間</h3>
           <ul className="mt-2 pl-4 text-2xl">
-            <li>徒歩：{distanceAndDuration.walingkTime}</li>
+            <li>徒歩：{distanceAndDuration.walkingkTime}</li>
             <li>自転車：{distanceAndDuration.bicyclingTime}</li>
             <li>車：{distanceAndDuration.driveTime}</li>
           </ul>

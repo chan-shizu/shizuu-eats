@@ -26,3 +26,29 @@ model ShizuyaPosition {
   createdAt DateTime @default(now())  // レコードの作成日時
   updatedAt DateTime @updatedAt       // レコードの更新日時
 }
+
+enum OrderStatus {
+  INITIAL
+  ACCEPTED
+  DENIED
+  PROGRESS
+  COMPLETED
+}
+
+model Order {
+  id        String     @id @default(uuid()) // 自動インクリメントする主キー
+  distance  String   
+  walkingTime String  
+  bicyclingTime String
+  driveTime String
+  orderName String
+  orderRemark String
+  orderBudget Int
+  customInfoName String
+  customInfoRemark String
+  customInfoConfirm Boolean
+  status OrderStatus @default(INITIAL)
+  comment String?
+  createdAt DateTime @default(now())  // レコードの作成日時
+  updatedAt DateTime @updatedAt       // レコードの更新日時
+}

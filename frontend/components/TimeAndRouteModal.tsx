@@ -4,6 +4,7 @@ import {
   currentUserPositionAtom,
   deliveryProcessPreviousStatusAtom,
   deliveryProcessStatusAtom,
+  distanceAndDurationAtom,
 } from "@/atoms/deliveryAtoms";
 import { LatestShizuyaPosition } from "@/types/latestShizuyasPosition";
 import { useLoadScript } from "@react-google-maps/api";
@@ -16,11 +17,8 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
   const [deliveryProcessStatus, setDeliveryProcessStatus] = useAtom(deliveryProcessStatusAtom);
   const [deliveryProcessPreviousStatus, setDeliveryPreviousProcessStatus] = useAtom(deliveryProcessPreviousStatusAtom);
   const currentUserPosition = useAtomValue(currentUserPositionAtom);
+  const [distanceAndDuration, setDistanceAndDuration] = useAtom(distanceAndDurationAtom);
 
-  const [distance, setDistance] = useState("");
-  const [walkingDuration, setWalkingDuration] = useState("");
-  const [bicyclingDuration, setBicyclingDuration] = useState("");
-  const [drivingDuration, setDrivingDuration] = useState("");
   const isFirstRenderingRef = useRef(true);
 
   const isModalOpen = deliveryProcessStatus === "timeAndRoute";
@@ -29,6 +27,13 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
     if (!isModalOpen) return;
 
     const directionsService = new google.maps.DirectionsService();
+
+    const tempDistanceAndDuration = {
+      distance: "",
+      walingkTime: "",
+      bicyclingTime: "",
+      driveTime: "",
+    };
 
     // ルートのリクエストを作成（歩き）
     directionsService.route(
@@ -41,8 +46,8 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         if (status === google.maps.DirectionsStatus.OK && result !== null) {
           // 経路の距離と所要時間を取得
           const route = result.routes[0].legs[0];
-          route.distance && setDistance(route.distance.text); // 例: "10 km"
-          route.duration && setWalkingDuration(route.duration.text); // 例: "15 mins"
+          tempDistanceAndDuration.distance = route.distance ? route.distance.text : "";
+          tempDistanceAndDuration.walingkTime = route.duration ? route.duration.text : "";
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -60,7 +65,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         if (status === google.maps.DirectionsStatus.OK && result !== null) {
           // 経路の距離と所要時間を取得
           const route = result.routes[0].legs[0];
-          route.duration && setBicyclingDuration(route.duration.text); // 例: "15 mins"
+          tempDistanceAndDuration.bicyclingTime = route.duration ? route.duration.text : "";
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -78,13 +83,14 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         if (status === google.maps.DirectionsStatus.OK && result !== null) {
           // 経路の距離と所要時間を取得
           const route = result.routes[0].legs[0];
-          route.distance && setDistance(route.distance.text); // 例: "10 km"
-          route.duration && setDrivingDuration(route.duration.text); // 例: "15 mins"
+          tempDistanceAndDuration.driveTime = route.duration ? route.duration.text : "";
         } else {
           console.error(`error fetching directions ${result}`);
         }
       }
     );
+
+    setDistanceAndDuration(tempDistanceAndDuration);
 
     if (isFirstRenderingRef.current) {
       isFirstRenderingRef.current = false;
@@ -122,14 +128,14 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         <h2 className=" text-xl">現在地から計算された所要時間は以下のようになります</h2>
         <div className="mt-4">
           <h3 className="text-4xl">距離</h3>
-          <p className="text-2xl mt-2 pl-4">およそ {distance}</p>
+          <p className="text-2xl mt-2 pl-4">およそ {distanceAndDuration.distance}</p>
         </div>
         <div className="mt-4">
           <h3 className="text-4xl">所要時間</h3>
           <ul className="mt-2 pl-4 text-2xl">
-            <li>徒歩：{walkingDuration}</li>
-            <li>自転車：{bicyclingDuration}</li>
-            <li>車：{drivingDuration}</li>
+            <li>徒歩：{distanceAndDuration.walingkTime}</li>
+            <li>自転車：{distanceAndDuration.bicyclingTime}</li>
+            <li>車：{distanceAndDuration.driveTime}</li>
           </ul>
         </div>
         <div className="grid gap-y-2 absolute bottom-5 left-0 w-full">

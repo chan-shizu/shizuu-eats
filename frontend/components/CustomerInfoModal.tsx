@@ -19,14 +19,14 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
   };
 
   const onClickNextButton = () => {
-    setDeliveryProcessStatus("next");
+    setDeliveryProcessStatus("confirm");
     setDeliveryPreviousProcessStatus("customerInfo");
   };
 
   if (
-    deliveryProcessPreviousStatus !== "timeAndRoute" &&
     deliveryProcessPreviousStatus !== "order" &&
-    deliveryProcessPreviousStatus !== "customerInfo"
+    deliveryProcessPreviousStatus !== "customerInfo" &&
+    deliveryProcessPreviousStatus !== "confirm"
   ) {
     return <></>;
   }

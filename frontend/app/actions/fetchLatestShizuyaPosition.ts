@@ -2,7 +2,7 @@
 
 export const fetchLatestShizuyaPosition = async () => {
   try {
-    const res = await fetch("http://api:3000/shizuya-positions", {
+    const res = await fetch(`${process.env.API_END_POINT}/shizuya-positions`, {
       cache: "no-store",
     });
     if (!res.ok) throw Error;

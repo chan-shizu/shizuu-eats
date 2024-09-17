@@ -1,5 +1,6 @@
 "use client";
 
+import { createOrder } from "@/app/actions/createOrder";
 import {
   customerInfoAtom,
   deliveryProcessPreviousStatusAtom,
@@ -7,8 +8,10 @@ import {
   distanceAndDurationAtom,
   orderAtom,
 } from "@/atoms/deliveryAtoms";
+import { LOCAL_STORAGE_ORDER_IDS_KEY } from "@/const";
 import { useAtom, useAtomValue } from "jotai";
 import { FC } from "react";
+import toast from "react-hot-toast";
 
 type Props = {};
 
@@ -26,9 +29,32 @@ export const ConfirmModal: FC<Props> = ({}) => {
     setDeliveryPreviousProcessStatus("confirm");
   };
 
-  const onClickNextButton = () => {
+  const onClickOrderButton = async () => {
+    const orderId = await createOrder(distanceAndDuration, order, customerInfo);
+
+    if (!orderId) {
+      toast.error(
+        <>
+          エラーが発生しました((+_+))。
+          <br /> 時間空けてもう一回やるか、直接僕に連絡ください！
+        </>
+      );
+      return;
+    }
+
+    const jsonString = localStorage.getItem(LOCAL_STORAGE_ORDER_IDS_KEY);
+    const orderIds = jsonString ? JSON.parse(jsonString) : [];
+    localStorage.setItem("orderIds", JSON.stringify([...orderIds, orderId.id]));
+
     setDeliveryProcessStatus("initial");
     setDeliveryPreviousProcessStatus("initial");
+    toast.success(
+      <>
+        注文が確定しました！
+        <br />
+        画面上部の履歴から、注文の状況を適時確認してください！
+      </>
+    );
   };
 
   if (deliveryProcessPreviousStatus !== "confirm" && deliveryProcessPreviousStatus !== "customerInfo") return <></>;
@@ -76,8 +102,8 @@ export const ConfirmModal: FC<Props> = ({}) => {
           <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
-            購入者情報に進む
+          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickOrderButton}>
+            注文を確定する
           </button>
         </div>
       </div>

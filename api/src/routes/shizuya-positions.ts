@@ -27,8 +27,9 @@ router.get("/", async (req: express.Request, res: express.Response) => {
 router.post("/", async (req: express.Request, res: express.Response) => {
   try {
     const body = req.body;
+    if (body.password !== process.env.ADMIN_PASSWORD) throw Error;
 
-    await prisma.shizuyaPosition.create({ data: body });
+    await prisma.shizuyaPosition.create({ data: { latitude: body.latitude, longitude: body.longitude } });
 
     res.status(200).json();
   } catch (error: any) {

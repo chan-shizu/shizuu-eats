@@ -1,6 +1,7 @@
 "use client";
 
 import { createShizuyaPosition } from "@/app/admin-secret/actions/createShizuyaPosition";
+import { useSearchParams } from "next/navigation";
 import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 type Props = {};
@@ -12,22 +13,33 @@ const getCurrentPositionAsync = () => {
 };
 
 export const ShizuyaPosition: FC<Props> = () => {
+  const searchParams = useSearchParams();
+
   const createShizuyaPositionByCurrentPosition = async () => {
+    const password = searchParams.get("pass");
+    if (!password) return;
+
     try {
       if (process.env.NODE_ENV === "development") {
-        const res = await createShizuyaPosition({
-          lat: 35.6701 + Math.random() * 0.5 - 1,
-          lng: 139.7025 + Math.random() * 0.5 - 1,
-        });
+        const res = await createShizuyaPosition(
+          {
+            lat: 35.6701 + Math.random() * 0.5 - 1,
+            lng: 139.7025 + Math.random() * 0.5 - 1,
+          },
+          password
+        );
 
         if (!res) throw Error;
       } else {
         const position = await getCurrentPositionAsync();
 
-        const res = await createShizuyaPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+        const res = await createShizuyaPosition(
+          {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          },
+          password
+        );
 
         if (!res) throw Error;
       }

@@ -2,7 +2,7 @@
 
 import { Position } from "@/atoms/deliveryAtoms";
 
-export const createShizuyaPosition = async (position: Position) => {
+export const createShizuyaPosition = async (position: Position, password: string) => {
   try {
     const url = process.env.NEXT_PUBLIC_API_END_POINT + "/shizuya-positions";
 
@@ -14,6 +14,7 @@ export const createShizuyaPosition = async (position: Position) => {
       body: JSON.stringify({
         latitude: position.lat,
         longitude: position.lng,
+        password: password,
       }),
     });
 

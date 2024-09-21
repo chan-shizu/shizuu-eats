@@ -6,5 +6,6 @@ export type HistoryOrder = {
   customInfoConfirm: boolean;
   status: string;
   comment: string;
+  estimatedArrivalTime: string;
   createdAt: string;
 };

@@ -6,6 +6,7 @@ const router = express.Router();
 router.post("/", async (req: express.Request, res: express.Response) => {
   try {
     const body = req.body;
+
     const newOrder = await prisma.order.create({ data: body });
 
     res.status(200).json({ id: newOrder.id });
@@ -34,6 +35,7 @@ router.get("/:id", async (req: express.Request, res: express.Response) => {
       customInfoConfirm: order.customInfoConfirm,
       status: order.status,
       comment: order.comment,
+      estimatedArrivalTime: order.estimatedArrivalTime,
       createdAt: order.createdAt,
     };
 

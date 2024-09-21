@@ -2,6 +2,7 @@
 
 import { createOrder } from "@/app/actions/createOrder";
 import {
+  currentUserPositionAtom,
   customerInfoAtom,
   deliveryProcessPreviousStatusAtom,
   deliveryProcessStatusAtom,
@@ -21,6 +22,7 @@ export const ConfirmModal: FC<Props> = ({}) => {
   const distanceAndDuration = useAtomValue(distanceAndDurationAtom);
   const order = useAtomValue(orderAtom);
   const customerInfo = useAtomValue(customerInfoAtom);
+  const currentUserPosition = useAtomValue(currentUserPositionAtom);
 
   const isModalOpen = deliveryProcessStatus === "confirm";
 
@@ -30,7 +32,7 @@ export const ConfirmModal: FC<Props> = ({}) => {
   };
 
   const onClickOrderButton = async () => {
-    const orderId = await createOrder(distanceAndDuration, order, customerInfo);
+    const orderId = await createOrder(distanceAndDuration, order, customerInfo, currentUserPosition);
 
     if (!orderId) {
       toast.error(

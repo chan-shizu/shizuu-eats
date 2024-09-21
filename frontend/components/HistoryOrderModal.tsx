@@ -8,6 +8,7 @@ type Props = { order: HistoryOrder; onClickOrderCard: (id: string) => void };
 
 export const HistoryOrderModal: FC<Props> = ({ order, onClickOrderCard }) => {
   const createdAt = order.createdAt.split("T")[0];
+  const estimatedArrivalTime = order.estimatedArrivalTime ? order.estimatedArrivalTime.split("T")[0] : "";
 
   let statusText = "";
   let statusColor = "";
@@ -35,6 +36,7 @@ export const HistoryOrderModal: FC<Props> = ({ order, onClickOrderCard }) => {
           <p>ステータス：{statusText}</p>
           <p>コメント：{order.comment}</p>
           <p>注文時刻：{createdAt}</p>
+          <p>到着予定時刻：{estimatedArrivalTime}</p>
         </div>
         <button className="mt-5 w-full h-16 rounded-full bg-sky-300" onClick={() => onClickOrderCard("")}>
           閉じる

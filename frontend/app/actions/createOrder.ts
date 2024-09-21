@@ -1,13 +1,13 @@
 "use server";
 
-import { CustomerInfo, DistanceAndDuration, Order } from "@/atoms/deliveryAtoms";
+import { CustomerInfo, DistanceAndDuration, Order, Position } from "@/atoms/deliveryAtoms";
 
 export const createOrder = async (
   distanceAndDuration: DistanceAndDuration,
   order: Order,
-  customerInfo: CustomerInfo
+  customerInfo: CustomerInfo,
+  currentUserPosition: Position
 ) => {
-  console.log("create order");
   try {
     const url = process.env.NEXT_PUBLIC_API_END_POINT + "/orders";
     const response = await fetch(url, {
@@ -26,6 +26,8 @@ export const createOrder = async (
         customInfoName: customerInfo.name,
         customInfoRemark: customerInfo.name,
         customInfoConfirm: customerInfo.confirm,
+        latitude: currentUserPosition.lat,
+        longitude: currentUserPosition.lng,
       }),
     });
 

@@ -17,6 +17,10 @@ export type CustomerInfo = {
   remark: string;
   confirm: boolean;
 };
+export type Position = {
+  lat: number;
+  lng: number;
+};
 
 export const deliveryProcessStatusAtom = atom<DeliveryProcessStatusType>("initial");
 export const deliveryProcessPreviousStatusAtom = atom<DeliveryProcessStatusType>("initial");

@@ -3,13 +3,14 @@ import prisma from "../prisma";
 
 const router = express.Router();
 
-router.post("/", async (req: express.Request, res: express.Response) => {
+router.get("/", async (req: express.Request, res: express.Response) => {
   try {
-    const body = req.body;
+    const password = req.query.password;
+    if (password !== process.env.ADMIN_PASSWORD) throw Error;
 
-    const newOrder = await prisma.order.create({ data: body });
+    const orders = await prisma.order.findMany();
 
-    res.status(200).json({ id: newOrder.id });
+    res.status(200).json(orders);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }
@@ -40,6 +41,29 @@ router.get("/:id", async (req: express.Request, res: express.Response) => {
     };
 
     res.status(200).json(orderResponse);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.post("/", async (req: express.Request, res: express.Response) => {
+  try {
+    const body = req.body;
+
+    const newOrder = await prisma.order.create({ data: body });
+
+    res.status(200).json({ id: newOrder.id });
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.put("/", async (req: express.Request, res: express.Response) => {
+  try {
+    const body = req.body;
+    const newOrder = await prisma.order.update({ where: { id: body.id }, data: body });
+
+    res.status(200).json({ id: newOrder.id });
   } catch (error: any) {
     res.status(400).json({ message: error.message });
   }

@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from "react";
 import { OrderCard } from "./OrderCard";
-import { HistoryOrder } from "@/types/historyOrder";
+import { HistoryOrder } from "@/types/order";
 import { HistoryOrderModal } from "./HistoryOrderModal";
 
 type Props = {};

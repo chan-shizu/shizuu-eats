@@ -51,24 +51,24 @@ export const ShizuyaPosition: FC<Props> = () => {
   };
 
   useEffect(() => {
-    // 60000ミリ秒（60秒）ごとにPOSTリクエストを実行
+    // 300000ミリ秒（300秒、5分）ごとにPOSTリクエストを実行
     const intervalId = setInterval(() => {
       createShizuyaPositionByCurrentPosition();
-    }, 60000);
+    }, 300000);
     return () => {
       clearInterval(intervalId);
     };
   }, []); // 空の依存配列でコンポーネントの初回マウント時に実行
 
   return (
-    <div>
+    <section>
       <h2 className="text-2xl">位置情報更新</h2>
       <button
         className="rounded-full bg-red-300 px-6 py-4 mt-3 mx-auto"
         onClick={createShizuyaPositionByCurrentPosition}
       >
-        手動更新更新
+        手動更新
       </button>
-    </div>
+    </section>
   );
 };

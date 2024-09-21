@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-type DeliveryProcessStatusType = "initial" | "timeAndRoute" | "order" | "customerInfo" | "confirm";
+export type DeliveryProcessStatusType = "initial" | "timeAndRoute" | "order" | "customerInfo" | "confirm";
 export type DistanceAndDuration = {
   distance: string;
   walkingkTime: string;

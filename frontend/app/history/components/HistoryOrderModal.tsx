@@ -1,7 +1,7 @@
 "use client";
 
-import { HistoryOrder } from "@/types/historyOrder";
-import { LatestShizuyaPosition } from "@/types/latestShizuyasPosition";
+import { ORDER_STATUS_COLOR_MAPPING, ORDER_STATUS_TEXT_MAPPING } from "@/const";
+import { HistoryOrder } from "@/types/order";
 import { FC } from "react";
 
 type Props = { order: HistoryOrder; onClickOrderCard: (id: string) => void };
@@ -9,20 +9,7 @@ type Props = { order: HistoryOrder; onClickOrderCard: (id: string) => void };
 export const HistoryOrderModal: FC<Props> = ({ order, onClickOrderCard }) => {
   const createdAt = order.createdAt.split("T")[0];
   const estimatedArrivalTime = order.estimatedArrivalTime ? order.estimatedArrivalTime.split("T")[0] : "";
-
-  let statusText = "";
-  let statusColor = "";
-  if (order.status === "INITIAL") {
-    statusText = "注文完了";
-  } else if (order.status === "ACCEPTED") {
-    statusColor = "red-200";
-  } else if (order.status === "DENIED") {
-    statusText = "キャンセル";
-  } else if (order.status === "PROGRESS") {
-    statusText = "移動中";
-  } else if (order.status === "COMPLETED") {
-    statusText = "完了";
-  }
+  const statusText = ORDER_STATUS_TEXT_MAPPING[order.status];
 
   return (
     <div className="w-full h-full fixed inset-0 p-10 z-20">

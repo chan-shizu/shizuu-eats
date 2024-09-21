@@ -12,6 +12,7 @@ router.get("/", async (req: express.Request, res: express.Response) => {
 
     res.status(200).json(orders);
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -42,6 +43,7 @@ router.get("/:id", async (req: express.Request, res: express.Response) => {
 
     res.status(200).json(orderResponse);
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -52,8 +54,18 @@ router.post("/", async (req: express.Request, res: express.Response) => {
 
     const newOrder = await prisma.order.create({ data: body });
 
+    await fetch("https://notify-api.line.me/api/notify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${process.env.LINE_NOTIFY_ACCESS_TOKEN}`,
+      },
+      body: `message=${encodeURIComponent(JSON.stringify(newOrder, null, 2))}`,
+    });
+
     res.status(200).json({ id: newOrder.id });
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 });
@@ -65,6 +77,7 @@ router.put("/", async (req: express.Request, res: express.Response) => {
 
     res.status(200).json({ id: newOrder.id });
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({ message: error.message });
   }
 });

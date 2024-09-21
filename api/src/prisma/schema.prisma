@@ -49,8 +49,12 @@ model Order {
   customInfoConfirm Boolean
   status OrderStatus @default(INITIAL)
   comment String?
-  latitude  Float   // 緯度 (Latitude)
-  longitude Float   // 経度 (Longitude)
+  customerLatitude  Float   // 緯度 (Latitude)
+  customerLongitude Float   // 経度 (Longitude)
+  customerAreaName String
+  shizuyaLatitude  Float   // 緯度 (Latitude)
+  shizuyaLongitude Float   // 経度 (Longitude)
+  shizuyaAreaName String
   estimatedArrivalTime DateTime?
   createdAt DateTime @default(now())  // レコードの作成日時
   updatedAt DateTime @updatedAt       // レコードの更新日時

@@ -21,6 +21,11 @@ export type Position = {
   lat: number;
   lng: number;
 };
+export type PositionWithAreaName = {
+  lat: number;
+  lng: number;
+  areaName: string;
+};
 
 export const deliveryProcessStatusAtom = atom<DeliveryProcessStatusType>("initial");
 export const deliveryProcessPreviousStatusAtom = atom<DeliveryProcessStatusType>("initial");
@@ -28,6 +33,13 @@ export const deliveryProcessPreviousStatusAtom = atom<DeliveryProcessStatusType>
 export const currentUserPositionAtom = atom({
   lat: 35.69575,
   lng: 139.77521,
+  areaName: "",
+}); // 練馬らへん
+
+export const currentShizuyaPositionAtom = atom({
+  lat: 0,
+  lng: 0,
+  areaName: "",
 }); // 練馬らへん
 
 export const distanceAndDurationAtom = atom<DistanceAndDuration>({

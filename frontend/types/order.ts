@@ -24,8 +24,12 @@ export type AdminOrder = {
   customInfoConfirm: boolean;
   status: string;
   comment: string;
-  latitude: number;
-  longitude: number;
+  customerLatitude: number;
+  customerLongitude: number;
+  customerAreaName: string;
+  shizuyaLatitude: number;
+  shizuyaLongitude: number;
+  shizuyaAreaName: string;
   estimatedArrivalTime: string;
   createdAt: string;
   updatedAt: string;

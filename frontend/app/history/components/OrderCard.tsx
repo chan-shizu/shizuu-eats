@@ -13,16 +13,17 @@ export const OrderCard: FC<Props> = ({ order, onClickOrderCard }) => {
   return (
     <div
       onClick={() => onClickOrderCard(order.id)}
-      className={`border-4 p-4 grid grid-cols-[1fr_100px] ${orderCardBorderColor}`}
+      className={`border-4 p-4 grid shadow-md grid-cols-[1fr_100px] ${orderCardBorderColor}`}
     >
       <div className="grid gap-y-2">
         <p>表品名：{order.orderName}</p>
         <p>注文時刻：{createdAt}</p>
         <p>本当に届けてほしい：{order.customInfoConfirm ? "はい" : "いいえ"}</p>
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <p>{statusText}</p>
       </div>
+      <p className="text-sm  col-span-2 mt-4 text-center">タップするとより詳細な情報が見れます</p>
     </div>
   );
 };

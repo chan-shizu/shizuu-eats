@@ -61,12 +61,28 @@ export const OrderModal: FC<Props> = ({ order, onClickOrderCard }) => {
               <p className="bg-slate-200">{order.driveTime}</p>
             </div>
             <div className="flex gap-x-2">
-              <p>緯度</p>
-              <p>{order.latitude} </p>
+              <p>ユーザーの緯度</p>
+              <p>{order.customerLatitude} </p>
             </div>
             <div className="flex gap-x-2">
-              <p>経度</p>
-              <p>{order.longitude} </p>
+              <p>ユーザーの経度</p>
+              <p>{order.customerLongitude} </p>
+            </div>
+            <div className="flex gap-x-2">
+              <p>ユーザーの地名</p>
+              <p>{order.customerAreaName} </p>
+            </div>
+            <div className="flex gap-x-2">
+              <p>俺の緯度</p>
+              <p>{order.shizuyaLatitude} </p>
+            </div>
+            <div className="flex gap-x-2">
+              <p>俺の経度</p>
+              <p>{order.shizuyaLongitude} </p>
+            </div>
+            <div className="flex gap-x-2">
+              <p>俺の地名</p>
+              <p>{order.shizuyaAreaName} </p>
             </div>
             <div className="flex gap-x-2">
               <p>注文名</p>

@@ -32,20 +32,22 @@ export const OrderList: FC<Props> = () => {
       const results = await Promise.all(
         responses.map((res) => {
           if (!res.ok) {
-            throw new Error("データの取得に失敗しました");
+            return null;
           }
           return res.json();
         })
       );
 
-      if (!results) return;
+      const resultWithoutNull = results.filter((result) => result !== null);
 
-      setOrders(results);
+      if (!resultWithoutNull) return;
+
+      setOrders(resultWithoutNull);
     })();
   }, []);
 
   if (!orders.length || orders.length == 0) {
-    return <p>注文はありません。</p>;
+    return <p className="p-5">注文はありません。</p>;
   }
 
   const selectedOrder = orders.find((order) => order.id === selectedOrderId);

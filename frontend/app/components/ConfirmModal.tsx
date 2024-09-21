@@ -2,6 +2,7 @@
 
 import { createOrder } from "@/app/actions/createOrder";
 import {
+  currentShizuyaPositionAtom,
   currentUserPositionAtom,
   customerInfoAtom,
   deliveryProcessPreviousStatusAtom,
@@ -23,6 +24,7 @@ export const ConfirmModal: FC<Props> = ({}) => {
   const order = useAtomValue(orderAtom);
   const customerInfo = useAtomValue(customerInfoAtom);
   const currentUserPosition = useAtomValue(currentUserPositionAtom);
+  const currentShizuyaPosition = useAtomValue(currentShizuyaPositionAtom);
 
   const isModalOpen = deliveryProcessStatus === "confirm";
 
@@ -32,7 +34,13 @@ export const ConfirmModal: FC<Props> = ({}) => {
   };
 
   const onClickOrderButton = async () => {
-    const orderId = await createOrder(distanceAndDuration, order, customerInfo, currentUserPosition);
+    const orderId = await createOrder(
+      distanceAndDuration,
+      order,
+      customerInfo,
+      currentUserPosition,
+      currentShizuyaPosition
+    );
 
     if (!orderId) {
       toast.error(
@@ -97,7 +105,7 @@ export const ConfirmModal: FC<Props> = ({}) => {
           <ul className="mt-2 pl-4 text-lg">
             <li>名前：{customerInfo.name}</li>
             <li>備考：{customerInfo.remark}</li>
-            <li>本当に買う？：{customerInfo.confirm ? "はい" : "いいえ"}</li>
+            <li>本当に呼ぶ？：{customerInfo.confirm ? "はい" : "いいえ"}</li>
           </ul>
         </div>
         <div className="grid gap-y-4 w-full mt-5">

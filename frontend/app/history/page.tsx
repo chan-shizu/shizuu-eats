@@ -1,4 +1,4 @@
-import { OrderList } from "@/components/OrderList";
+import { OrderList } from "./components/OrderList";
 import { TopNavigation } from "@/components/TopNavigation";
 import { FC } from "react";
 

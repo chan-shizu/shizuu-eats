@@ -11,7 +11,7 @@ const getCurrentPositionAsync = () => {
   });
 };
 
-export const AdminShizuyaPosition: FC<Props> = () => {
+export const ShizuyaPosition: FC<Props> = () => {
   const createShizuyaPositionByCurrentPosition = async () => {
     try {
       if (process.env.NODE_ENV === "development") {

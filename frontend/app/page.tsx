@@ -1,12 +1,12 @@
-import { GoogleMapArea } from "@/components/GoogleMapArea";
+import { GoogleMapArea } from "./components/GoogleMapArea";
 import { fetchLatestShizuyaPosition } from "./actions/fetchLatestShizuyaPosition";
 import { LatestShizuyaPosition } from "@/types/latestShizuyasPosition";
 import { TopNavigation } from "@/components/TopNavigation";
-import { DeliveryStartButton } from "@/components/DeliveryStartButton";
-import { TimeAndRouterModal } from "@/components/TimeAndRouteModal";
-import { OrderModal } from "@/components/OrderModal";
-import { CustomerInfoModal } from "@/components/CustomerInfoModal";
-import { ConfirmModal } from "@/components/ConfirmModal";
+import { DeliveryStartButton } from "./components/DeliveryStartButton";
+import { TimeAndRouterModal } from "./components/TimeAndRouteModal";
+import { OrderModal } from "./components/OrderModal";
+import { CustomerInfoModal } from "./components/CustomerInfoModal";
+import { ConfirmModal } from "./components/ConfirmModal";
 
 export default async function Home() {
   const latestShizuyaPosition: LatestShizuyaPosition = await fetchLatestShizuyaPosition();

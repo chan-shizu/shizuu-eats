@@ -24,4 +24,16 @@ router.get("/", async (req: express.Request, res: express.Response) => {
   }
 });
 
+router.post("/", async (req: express.Request, res: express.Response) => {
+  try {
+    const body = req.body;
+
+    await prisma.shizuyaPosition.create({ data: body });
+
+    res.status(200).json();
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 export default router;

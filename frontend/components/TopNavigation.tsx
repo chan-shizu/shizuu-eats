@@ -12,15 +12,13 @@ export const TopNavigation: FC<Props> = () => {
     <div className="h-28 absolute top-0 grid grid-cols-2 w-full bg-white bg-opacity-70 text-2xl font-bold text-gray-600 z-10 border-b-2 border-gray-400">
       <button
         className={`${currentPath == "/" && "  bg-gray-200 text-black shadow"}`}
-        onClick={() => router.push("/")}
+        onClick={() => (window.location.href = "/")}
       >
         注文
       </button>
       <button
-        className={`${
-          currentPath == "/history" && " bg-gray-200 text-black shadow"
-        }`}
-        onClick={() => router.push("history")}
+        className={`${currentPath == "/history" && " bg-gray-200 text-black shadow"}`}
+        onClick={() => (window.location.href = "history")}
       >
         履歴
       </button>

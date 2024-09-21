@@ -26,71 +26,77 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
   useEffect(() => {
     if (!isModalOpen) return;
 
-    const directionsService = new google.maps.DirectionsService();
+    (async () => {
+      const directionsService = new google.maps.DirectionsService();
 
-    const tempDistanceAndDuration = {
-      distance: "",
-      walkingkTime: "",
-      bicyclingTime: "",
-      driveTime: "",
-    };
+      const tempDistanceAndDuration = {
+        distance: "",
+        walkingkTime: "",
+        bicyclingTime: "",
+        driveTime: "",
+      };
 
-    // ルートのリクエストを作成（歩き）
-    directionsService.route(
-      {
-        origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
-        destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
-        travelMode: google.maps.TravelMode.WALKING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK && result !== null) {
-          // 経路の距離と所要時間を取得
-          const route = result.routes[0].legs[0];
-          tempDistanceAndDuration.distance = route.distance ? route.distance.text : "";
-          tempDistanceAndDuration.walkingkTime = route.duration ? route.duration.text : "";
-        } else {
-          console.error(`error fetching directions ${result}`);
+      // ルートのリクエストを作成（歩き）
+      await directionsService.route(
+        {
+          origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
+          destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
+          travelMode: google.maps.TravelMode.WALKING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
+        },
+        (result, status) => {
+          console.log("#############3 walk ############");
+          if (status === google.maps.DirectionsStatus.OK && result !== null) {
+            // 経路の距離と所要時間を取得
+            const route = result.routes[0].legs[0];
+            tempDistanceAndDuration.distance = route.distance ? route.distance.text : "";
+            tempDistanceAndDuration.walkingkTime = route.duration ? route.duration.text : "";
+            console.log(tempDistanceAndDuration);
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
         }
-      }
-    );
+      );
 
-    // ルートのリクエストを作成（自転車）
-    directionsService.route(
-      {
-        origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
-        destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
-        travelMode: google.maps.TravelMode.BICYCLING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK && result !== null) {
-          // 経路の距離と所要時間を取得
-          const route = result.routes[0].legs[0];
-          tempDistanceAndDuration.bicyclingTime = route.duration ? route.duration.text : "";
-        } else {
-          console.error(`error fetching directions ${result}`);
+      // ルートのリクエストを作成（自転車）
+      await directionsService.route(
+        {
+          origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
+          destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
+          travelMode: google.maps.TravelMode.BICYCLING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
+        },
+        (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK && result !== null) {
+            // 経路の距離と所要時間を取得
+            const route = result.routes[0].legs[0];
+            tempDistanceAndDuration.bicyclingTime = route.duration ? route.duration.text : "";
+            console.log(tempDistanceAndDuration);
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
         }
-      }
-    );
+      );
 
-    // ルートのリクエストを作成（車）
-    directionsService.route(
-      {
-        origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
-        destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
-        travelMode: google.maps.TravelMode.DRIVING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
-      },
-      (result, status) => {
-        if (status === google.maps.DirectionsStatus.OK && result !== null) {
-          // 経路の距離と所要時間を取得
-          const route = result.routes[0].legs[0];
-          tempDistanceAndDuration.driveTime = route.duration ? route.duration.text : "";
-        } else {
-          console.error(`error fetching directions ${result}`);
+      // ルートのリクエストを作成（車）
+      await directionsService.route(
+        {
+          origin: new google.maps.LatLng(latestShizuyaPosition.lat, latestShizuyaPosition.lng),
+          destination: new google.maps.LatLng(currentUserPosition.lat, currentUserPosition.lng),
+          travelMode: google.maps.TravelMode.DRIVING, // WALKING, BICYCLING, DRIVINGなどが使用可能。TRANSITは日本国内では使えないらしい😢
+        },
+        (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK && result !== null) {
+            // 経路の距離と所要時間を取得
+            const route = result.routes[0].legs[0];
+            tempDistanceAndDuration.driveTime = route.duration ? route.duration.text : "";
+            console.log(tempDistanceAndDuration);
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
         }
-      }
-    );
+      );
 
-    setDistanceAndDuration(tempDistanceAndDuration);
+      setDistanceAndDuration(tempDistanceAndDuration);
+    })();
 
     if (isFirstRenderingRef.current) {
       isFirstRenderingRef.current = false;
@@ -124,21 +130,24 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         isModalOpen ? "animate-slide-in" : "animate-slide-out "
       }`}
     >
-      <div className={`bg-white z-10 w-full h-full p-5 relative `}>
-        <h2 className=" text-xl">現在地から計算された所要時間は以下のようになります</h2>
-        <div className="mt-4">
-          <h3 className="text-4xl">距離</h3>
-          <p className="text-2xl mt-2 pl-4">およそ {distanceAndDuration.distance}</p>
+      <div className="bg-white z-10 w-full h-full p-5 relative ">
+        <h2 className="text-3xl text-center">現在地情報</h2>
+        <div className="mt-3">
+          <p className="">現在地から計算された所要時間は以下のようになります</p>
         </div>
         <div className="mt-4">
-          <h3 className="text-4xl">所要時間</h3>
-          <ul className="mt-2 pl-4 text-2xl">
+          <h3 className="text-2xl">距離</h3>
+          <p className="text-lg mt-2 pl-4">およそ {distanceAndDuration.distance}</p>
+        </div>
+        <div className="mt-4">
+          <h3 className="text-2xl">所要時間</h3>
+          <ul className="mt-2 pl-4 text-lg">
             <li>徒歩：{distanceAndDuration.walkingkTime}</li>
             <li>自転車：{distanceAndDuration.bicyclingTime}</li>
             <li>車：{distanceAndDuration.driveTime}</li>
           </ul>
         </div>
-        <div className="grid gap-y-2 absolute bottom-5 left-0 w-full">
+        <div className="grid gap-y-4 w-full mt-5">
           <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>

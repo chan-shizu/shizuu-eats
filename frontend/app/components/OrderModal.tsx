@@ -36,8 +36,8 @@ export const OrderModal: FC<Props> = ({}) => {
         isModalOpen ? "animate-slide-in" : "animate-slide-out "
       }`}
     >
-      <div className={`bg-white z-10 w-full h-full p-5 relative`}>
-        <h2 className="text-2xl">注文内容をご入力ください</h2>
+      <div className="bg-white z-10 w-full h-full p-5 relative overflow-y-auto">
+        <h2 className="text-3xl text-center">注文内容</h2>
         <div className="mt-4">
           <p>指定してもらった範囲で、僕のセンスで買い物してきます!</p>
           <p>別に買い物じゃなくても、送迎とか遊びの誘いとかなんでも対応可能です!</p>
@@ -82,7 +82,7 @@ export const OrderModal: FC<Props> = ({}) => {
             />
           </div>
         </div>
-        <div className="grid gap-y-2 absolute bottom-5 left-0 w-full">
+        <div className="grid gap-y-4 w-full mt-5">
           <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>

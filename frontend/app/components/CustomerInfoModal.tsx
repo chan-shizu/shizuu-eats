@@ -37,8 +37,8 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
         isModalOpen ? "animate-slide-in" : "animate-slide-out "
       }`}
     >
-      <div className={`bg-white z-10 w-full h-full p-5 relative`}>
-        <h2 className="text-2xl">購入者情報を入力してください</h2>
+      <div className="bg-white z-10 w-full h-full p-5 relative overflow-y-auto">
+        <h2 className="text-3xl text-center">お客さま情報</h2>
         <div className="mt-4">
           <p>セキュリティも何もないので、最悪流出しても良い情報でおねがいします</p>
         </div>
@@ -69,7 +69,7 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
             />
           </div>
           <div>
-            <div className="bg-gray-100 p-4 text-sm rounded-xl text-gray-500">
+            <div className="bg-gray-100 p-4 text-sm rounded-xl ">
               <p>スケジュールが空いてれば、マジで届けにいくつもりです。</p>
               <p>本当に届けてほしい方はチェックお願いします。</p>
               <p>試しに送ってみたいだけの方はチェックしないで次の画面に進んでください。</p>
@@ -88,7 +88,7 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
             </div>
           </div>
         </div>
-        <div className="grid gap-y-2 absolute bottom-5 left-0 w-full">
+        <div className="grid gap-y-4 w-full mt-5">
           <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>

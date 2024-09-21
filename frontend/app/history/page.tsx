@@ -1,3 +1,4 @@
+import { OrderList } from "@/components/OrderList";
 import { TopNavigation } from "@/components/TopNavigation";
 import { FC } from "react";
 
@@ -7,7 +8,9 @@ export const Page: FC<Props> = () => {
   return (
     <div className="">
       <TopNavigation />
-      history
+      <div className="mt-[110px]">
+        <OrderList />
+      </div>
     </div>
   );
 };

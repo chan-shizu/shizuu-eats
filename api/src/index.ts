@@ -3,6 +3,7 @@ import indexRouter from "./routes/index";
 import userRouter from "./routes/users";
 import shizuyaPositionRouter from "./routes/shizuya-positions";
 import orderRouter from "./routes/orders";
+var cors = require("cors");
 
 const app = express();
 
@@ -19,12 +20,16 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+
+  res.setHeader("Access-Control-Allow-Origin", "*");
 });
 
 // JSONオブジェクトの受信設定
 app.use(express.json());
 // 配列側のオブジェクトの受信設定
 app.use(express.urlencoded({ extended: true }));
+// CORS
+app.use(cors());
 
 // ルーティング
 app.use("/", indexRouter);

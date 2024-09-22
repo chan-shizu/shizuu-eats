@@ -6,9 +6,21 @@ type Props = { order: HistoryOrder; onClickOrderCard: (id: string) => void };
 
 export const OrderCard: FC<Props> = ({ order, onClickOrderCard }) => {
   const createdAt = order.createdAt.split("T")[0];
-
   const orderCardBorderColor = ORDER_STATUS_COLOR_MAPPING[order.status];
   const statusText = ORDER_STATUS_TEXT_MAPPING[order.status];
+
+  let borderColor = "";
+  if (order.status === "INITIAL") {
+    borderColor = "border-green-200";
+  } else if (order.status === "ACCEPTED") {
+    borderColor = "border-red-200";
+  } else if (order.status === "DENIED") {
+    borderColor = "border-yellow-400";
+  } else if (order.status === "PROGRESS") {
+    borderColor = "border-pink-300";
+  } else if (order.status === "COMPLETED") {
+    borderColor = "border-gray-300";
+  }
 
   return (
     <div

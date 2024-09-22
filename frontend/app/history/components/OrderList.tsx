@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { OrderCard } from "./OrderCard";
 import { HistoryOrder } from "@/types/order";
 import { HistoryOrderModal } from "./HistoryOrderModal";
+import { fetchOrder } from "../actions/fetchOrder";
 
 type Props = {};
 
@@ -18,30 +19,15 @@ export const OrderList: FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
-      setIsLoading(false);
       const orderIdsJson = localStorage.getItem("orderIds");
       if (!orderIdsJson) return;
       const orderIds: string[] = JSON.parse(orderIdsJson);
 
-      const responses = await Promise.all(
-        orderIds.map((orderId) =>
-          fetch(`${process.env.NEXT_PUBLIC_API_CLIENT_END_POINT}/orders/${orderId}`, {
-            cache: "no-store",
-          })
-        )
-      );
-
-      const results = await Promise.all(
-        responses.map((res) => {
-          if (!res.ok) {
-            return null;
-          }
-          return res.json();
-        })
-      );
+      const results = await Promise.all(orderIds.map((orderId) => fetchOrder(orderId)));
 
       const resultWithoutNull = results.filter((result) => result !== null);
 
+      setIsLoading(false);
       if (!resultWithoutNull) return;
 
       setOrders(resultWithoutNull);

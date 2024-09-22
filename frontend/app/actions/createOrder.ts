@@ -9,8 +9,28 @@ export const createOrder = async (
   currentUserPosition: PositionWithAreaName,
   currentShizuyaPosition: PositionWithAreaName
 ) => {
+  console.log("################### creaete Ordr ################3");
   try {
-    const url = process.env.NEXT_PUBLIC_API_END_POINT + "/orders";
+    const url = process.env.API_END_POINT + "/orders";
+    console.log(url);
+    console.log({
+      distance: distanceAndDuration.distance,
+      walkingTime: distanceAndDuration.walkingkTime,
+      bicyclingTime: distanceAndDuration.bicyclingTime,
+      driveTime: distanceAndDuration.driveTime,
+      orderName: order.name,
+      orderRemark: order.remark,
+      orderBudget: order.budget,
+      customInfoName: customerInfo.name,
+      customInfoRemark: customerInfo.name,
+      customInfoConfirm: customerInfo.confirm,
+      customerLatitude: currentUserPosition.lat,
+      customerLongitude: currentUserPosition.lng,
+      customerAreaName: currentUserPosition.areaName,
+      shizuyaLatitude: currentShizuyaPosition.lat,
+      shizuyaLongitude: currentShizuyaPosition.lng,
+      shizuyaAreaName: currentShizuyaPosition.areaName,
+    });
     const response = await fetch(url, {
       method: "POST",
       headers: {

@@ -13,13 +13,10 @@ export default async function Page({ searchParams }: Props) {
     return <p>勝手に入ってくるな！！</p>;
   }
 
-  const ordersResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_API_END_POINT}/orders?password=${process.env.ADMIN_PASSWORD}`,
-    {
-      method: "GET",
-      cache: "no-store",
-    }
-  );
+  const ordersResponse = await fetch(`${process.env.API_END_POINT}/orders?password=${process.env.ADMIN_PASSWORD}`, {
+    method: "GET",
+    cache: "no-store",
+  });
   if (!ordersResponse.ok) return <p>ごめんなんかエラー起こった</p>;
   const orders: AdminOrder[] = await ordersResponse.json();
 

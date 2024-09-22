@@ -183,7 +183,7 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
         isModalOpen ? "animate-slide-in" : "animate-slide-out "
       }`}
     >
-      <div className="bg-white z-10 w-full h-full p-5 relative ">
+      <div className="bg-white z-10 w-full h-full p-5 relative overflow-y-auto">
         <h2 className="text-3xl text-center">現在地情報</h2>
         <div className="mt-3">
           <p className="">現在地と現在地から計算された距離・所要時間です！</p>

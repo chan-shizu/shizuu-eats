@@ -18,7 +18,7 @@ export const DeliveryStartButton: FC<Props> = () => {
   };
 
   return (
-    <div className="h-20 absolute bottom-12 w-full font-bold z-10 px-4">
+    <div className="h-20 absolute bottom-16 w-full font-bold z-10 px-4">
       <button
         className={`w-full h-full text-2xl bg-red-500 text-white rounded-full ${!isButtonActive && "bg-gray-300"}`}
         onClick={onClickButton}

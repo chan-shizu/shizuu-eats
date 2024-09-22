@@ -52,7 +52,7 @@ export const distanceAndDurationAtom = atom<DistanceAndDuration>({
 export const orderAtom = atom<Order>({
   name: "",
   remark: "",
-  budget: 0,
+  budget: 1000,
 });
 
 export const customerInfoAtom = atom<CustomerInfo>({

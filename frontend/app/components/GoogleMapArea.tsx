@@ -17,16 +17,6 @@ const containerStyle = {
   width: "100%",
   height: "100%",
 };
-
-// 練馬らへん
-const defaultCenter = {
-  lat: 35.69575,
-  lng: 139.77521,
-};
-
-const MOVE_DURATION = 10000; // 移動にかかる時間 (ミリ秒)
-const MOVE_INTERVAL = 100; // マーカーの位置を更新する時間 (ミリ秒)
-
 type Props = { latestShizuyaPosition: LatestShizuyaPosition };
 
 export const GoogleMapArea: FC<Props> = ({ latestShizuyaPosition }) => {

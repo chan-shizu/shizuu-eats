@@ -18,6 +18,7 @@ export const OrderList: FC<Props> = () => {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(false);
       const orderIdsJson = localStorage.getItem("orderIds");
       if (!orderIdsJson) return;
       const orderIds: string[] = JSON.parse(orderIdsJson);
@@ -44,7 +45,6 @@ export const OrderList: FC<Props> = () => {
       if (!resultWithoutNull) return;
 
       setOrders(resultWithoutNull);
-      setIsLoading(false);
     })();
   }, []);
 

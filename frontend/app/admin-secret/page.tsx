@@ -1,7 +1,6 @@
 import { AdminOrder } from "@/types/order";
 import { OrderList } from "./components/OrderList";
 import { ShizuyaPosition } from "./components/ShizuyaPosition";
-import { FC } from "react";
 
 type Props = {
   searchParams: {
@@ -9,7 +8,7 @@ type Props = {
   };
 };
 
-export const Page: FC<Props> = async ({ searchParams }) => {
+export default async function Page({ searchParams }: Props) {
   if (searchParams.pass !== process.env.ADMIN_PASSWORD) {
     return <p>勝手に入ってくるな！！</p>;
   }
@@ -31,6 +30,4 @@ export const Page: FC<Props> = async ({ searchParams }) => {
       <OrderList orders={orders} />
     </div>
   );
-};
-
-export default Page;
+}

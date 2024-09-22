@@ -9,6 +9,10 @@ export const fetchLatestShizuyaPosition = async () => {
 
     return res.json();
   } catch {
-    return null;
+    return {
+      lat: 35.7072896,
+      lng: 139.558912,
+      createdAt: new Date().toISOString(),
+    };
   }
 };

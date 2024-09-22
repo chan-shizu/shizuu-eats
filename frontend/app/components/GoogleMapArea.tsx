@@ -32,10 +32,6 @@ type Props = { latestShizuyaPosition: LatestShizuyaPosition };
 export const GoogleMapArea: FC<Props> = ({ latestShizuyaPosition }) => {
   const mapRef = useRef<google.maps.Map | null>(null);
   const [currentUserPosition, setCurrentUserPosition] = useAtom(currentUserPositionAtom);
-  const [shizuyaMarkerPosition, setShizuyaMarkerPosition] = useState({
-    lat: latestShizuyaPosition.lat,
-    lng: latestShizuyaPosition.lng,
-  });
   const [directionResponse, setDirectionResponse] = useState<google.maps.DirectionsResult | null>(null);
 
   // 初回ローディング時にユーザーの位置情報を取得
@@ -44,6 +40,7 @@ export const GoogleMapArea: FC<Props> = ({ latestShizuyaPosition }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setCurrentUserPosition({
+            ...currentUserPosition,
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           });
@@ -122,8 +119,8 @@ export const GoogleMapArea: FC<Props> = ({ latestShizuyaPosition }) => {
               <Marker
                 key={"shizuya-position"}
                 position={{
-                  lat: shizuyaMarkerPosition.lat,
-                  lng: shizuyaMarkerPosition.lng,
+                  lat: latestShizuyaPosition.lat,
+                  lng: latestShizuyaPosition.lng,
                 }}
                 icon={{
                   url: "google_map_marker_me.png",

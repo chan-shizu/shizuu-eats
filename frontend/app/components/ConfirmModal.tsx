@@ -108,11 +108,11 @@ export const ConfirmModal: FC<Props> = ({}) => {
             <li>本当に呼ぶ？：{customerInfo.confirm ? "はい" : "いいえ"}</li>
           </ul>
         </div>
-        <div className="grid gap-y-4 w-full mt-5">
-          <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
+        <div className="grid gap-y-4 w-full mt-10">
+          <button className="w-full rounded-full h-16 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickOrderButton}>
+          <button className="w-full rounded-full h-16 bg-red-400" onClick={onClickOrderButton}>
             注文を確定する
           </button>
         </div>

@@ -63,7 +63,7 @@ export const OrderModal: FC<Props> = ({}) => {
             <textarea
               id="item_remark"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="揚げたてがよいです、今週のどっかで来て、車で送迎してほしいです...etc"
+              placeholder="揚げたてがよいです、車で送迎してほしいです...etc"
               value={order.remark}
               onChange={(e) => setOrder({ ...order, remark: e.target.value })}
             />
@@ -82,11 +82,11 @@ export const OrderModal: FC<Props> = ({}) => {
             />
           </div>
         </div>
-        <div className="grid gap-y-4 w-full mt-5">
-          <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
+        <div className="grid gap-y-4 w-full mt-10">
+          <button className="w-full rounded-full h-16 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
+          <button className="w-full rounded-full h-16 bg-red-400" onClick={onClickNextButton}>
             購入者情報に進む
           </button>
         </div>

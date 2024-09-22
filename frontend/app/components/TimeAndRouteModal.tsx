@@ -209,11 +209,11 @@ export const TimeAndRouterModal: FC<Props> = ({ latestShizuyaPosition }) => {
             <li>車：{distanceAndDuration.driveTime}</li>
           </ul>
         </div>
-        <div className="grid gap-y-4 w-full mt-7">
-          <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
+        <div className="grid gap-y-4 w-full mt-10">
+          <button className="w-full rounded-full h-16 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
+          <button className="w-full rounded-full h-16 bg-red-400" onClick={onClickNextButton}>
             注文内容に進む
           </button>
         </div>

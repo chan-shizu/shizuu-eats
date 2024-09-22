@@ -63,7 +63,7 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
             <textarea
               id="item_remark"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="所沢駅に16時ごろでおねがいします、明日でもよいよ"
+              placeholder="所沢駅に16時ごろでおねがいします、時間は別途LINEで相談で...etc"
               value={customerInfo.remark}
               onChange={(e) => setCustomerInfo({ ...customerInfo, remark: e.target.value })}
             />
@@ -88,11 +88,11 @@ export const CustomerInfoModal: FC<Props> = ({}) => {
             </div>
           </div>
         </div>
-        <div className="grid gap-y-4 w-full mt-5">
-          <button className="w-full rounded-full h-20 bg-blue-400" onClick={onClickBackButton}>
+        <div className="grid gap-y-4 w-full mt-10">
+          <button className="w-full rounded-full h-16 bg-blue-400" onClick={onClickBackButton}>
             戻る
           </button>
-          <button className="w-full rounded-full h-20 bg-red-400" onClick={onClickNextButton}>
+          <button className="w-full rounded-full h-16 bg-red-400" onClick={onClickNextButton}>
             確認画面に進む
           </button>
         </div>

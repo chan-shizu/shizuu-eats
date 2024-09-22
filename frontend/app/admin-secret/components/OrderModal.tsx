@@ -110,7 +110,9 @@ export const OrderModal: FC<Props> = ({ order, onClickOrderCard }) => {
               <label>ステータス</label>
               <select name="status" defaultValue={order.status}>
                 {["INITIAL", "ACCEPTED", "DENIED", "PROGRESS", "COMPLETED"].map((value) => (
-                  <option value={value}>{value}</option>
+                  <option value={value} key={value}>
+                    {value}
+                  </option>
                 ))}
               </select>
             </div>

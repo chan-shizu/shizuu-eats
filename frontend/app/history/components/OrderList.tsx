@@ -10,6 +10,7 @@ type Props = {};
 export const OrderList: FC<Props> = () => {
   const [orders, setOrders] = useState<HistoryOrder[]>([]);
   const [selectedOrderId, setSelectedOrderId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const onClickOrderCard = (id: string) => {
     setSelectedOrderId(id);
@@ -43,8 +44,17 @@ export const OrderList: FC<Props> = () => {
       if (!resultWithoutNull) return;
 
       setOrders(resultWithoutNull);
+      setIsLoading(false);
     })();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500 border-t-transparent"></div>
+      </div>
+    );
+  }
 
   if (!orders.length || orders.length == 0) {
     return <p className="p-5">注文はありません。</p>;
@@ -56,7 +66,7 @@ export const OrderList: FC<Props> = () => {
     <>
       <div className="p-6 grid gap-y-4">
         {orders.map((order) => (
-          <OrderCard order={order} onClickOrderCard={onClickOrderCard} />
+          <OrderCard order={order} onClickOrderCard={onClickOrderCard} key={order.id} />
         ))}
       </div>
       {selectedOrder && <HistoryOrderModal order={selectedOrder} onClickOrderCard={onClickOrderCard} />}

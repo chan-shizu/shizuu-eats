@@ -21,7 +21,7 @@ export const OrderList: FC<Props> = ({ orders }) => {
       <h2 className="text-2xl">位置情報更新</h2>
       <div className="grid gap-y-3 mt-4">
         {orders.map((order) => (
-          <OrderCard order={order} onClickOrderCard={onClickOrderCard} />
+          <OrderCard order={order} onClickOrderCard={onClickOrderCard} key={order.id} />
         ))}
       </div>
       {selectedOrder && <OrderModal order={selectedOrder} onClickOrderCard={onClickOrderCard} />}
